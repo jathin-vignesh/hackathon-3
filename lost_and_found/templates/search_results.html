@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h1>Search Results</h1>
+<ul>
+    {% for item_name, msg in results.items() %}
+    <li>
+        {{ item_name }} - Location: {{ msg.location }} - Contact: {{ msg.contact_info }} - Reported by: {{ msg.reported_by }}
+        {% if msg.photo %}
+        <img src="{{ url_for('uploaded_file', filename=msg.photo) }}" alt="Photo of {{ item_name }}" style="width:100px;height:100px;"><br>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

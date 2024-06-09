@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Lost Items{% endblock %}
+
+{% block content %}
+<h1>Lost Items</h1>
+<ul>
+    {% for item_name, msg in lost_items.items() %}
+    <li>
+        {{ item_name }} - Location: {{ msg.location }} - Contact: {{ msg.contact_info }} - Reported by: {{ msg.reported_by }}
+        {% if msg.photo %}
+        <img src="{{ url_for('uploaded_file', filename=msg.photo) }}" alt="Photo of {{ item_name }}" style="width:100px;height:100px;"><br>
+        {% endif %}
+        <form action="{{ url_for('lost_items') }}" method="post" style="display:inline;">
+            <input type="hidden" name="item_name" value="{{ item_name }}">
+            <input type="text" name="message" placeholder="Your message" required>
+            <button type="submit">Send Message</button>
+        </form>
+    </li>
+    <form action="{{ url_for('lost_items') }}" method="post">
+        <input type="text" name="item_name" placeholder="Item Name" required>
+        <input type="text" name="message" placeholder="Message" required>
+        <input type="text" name="to_user" placeholder="Recipient Username" required>  <!-- Add this field -->
+        <button type="submit">Send Message</button>
+    </form>       
+    {% endfor %}
+</ul>
+{% endblock %}

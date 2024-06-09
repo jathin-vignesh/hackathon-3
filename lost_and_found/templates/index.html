@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to Lost and Found</h1>
+{% if is_authenticated() %}
+    <p>Welcome, {{ get_username() }}!</p>
+    <p>Use the navigation bar to report lost items, view lost items, check your inbox, or logout.</p>
+{% else %}
+    <p>Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('register') }}">register</a> to use the application.</p>
+{% endif %}
+{% endblock %}
